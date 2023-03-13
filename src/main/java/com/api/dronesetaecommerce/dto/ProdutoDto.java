@@ -19,7 +19,7 @@ public class ProdutoDto {
 	@Size(max = 150, message = "A url informada excede o valor permitido para o campo.")
 	private String urlImagem;
 	
-	@NotNull(message = "Informar o tamanho da camiseta é obrigadtório")
+	@NotNull(message = "Informar o tamanho da camiseta é obrigatório")
 	private TamanhoCamiseta tamanhoCamiseta;
 	
 	@Min(value = 0, message = "Valores negativos não são suportados para o campo")
