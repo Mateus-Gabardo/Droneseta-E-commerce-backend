@@ -1,24 +1,22 @@
 package com.api.dronesetaecommerce.model;
 
-import java.io.Serializable;
-import java.util.Objects;
+import java.util.UUID;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "endereco")
-public class Endereco implements Serializable {
-
+public class EnderecoModel {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private UUID id;
 	
 	@Column(nullable = false, length = 255)
 	private String logradouro;
@@ -35,20 +33,20 @@ public class Endereco implements Serializable {
 	@Column(nullable = false, length = 100)
 	private String cidade;
 	
-	@Column(nullable = false, length = 100)
+	@Column(nullable = false, length = 2)
 	private String estado;
 	
 	@Column(nullable = false, length = 8)
-	private Integer cep;
+	private String cep;
 
-	public Endereco() {
+	public EnderecoModel() {
 	}
 
-	public Long getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 
@@ -100,32 +98,16 @@ public class Endereco implements Serializable {
 		this.estado = estado;
 	}
 
-	public Integer getCep() {
+	public String getCep() {
 		return cep;
 	}
 
-	public void setCep(Integer cep) {
+	public void setCep(String cep) {
 		this.cep = cep;
 	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(bairro, cep, cidade, complemento, estado, id, logradouro, numero);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Endereco other = (Endereco) obj;
-		return Objects.equals(bairro, other.bairro) && Objects.equals(cep, other.cep)
-				&& Objects.equals(cidade, other.cidade) && Objects.equals(complemento, other.complemento)
-				&& Objects.equals(estado, other.estado) && Objects.equals(id, other.id)
-				&& Objects.equals(logradouro, other.logradouro) && Objects.equals(numero, other.numero);
+	
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
 	}
 
 }

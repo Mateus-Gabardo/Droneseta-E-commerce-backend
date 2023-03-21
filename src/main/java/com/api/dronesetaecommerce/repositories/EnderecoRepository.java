@@ -1,7 +1,9 @@
 package com.api.dronesetaecommerce.repositories;
 
+import java.util.UUID;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.api.dronesetaecommerce.model.Endereco;
+import com.api.dronesetaecommerce.model.EnderecoModel;
 
-public interface EnderecoRepository extends JpaRepository<Endereco, Long>{}
+public interface EnderecoRepository extends JpaRepository<EnderecoModel, UUID>{}
