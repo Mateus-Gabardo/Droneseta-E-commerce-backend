@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,7 +18,7 @@ public class EnderecoModel {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private UUID id;
+	private UUID enderecoId;
 	
 	@Column(nullable = false, length = 255)
 	private String logradouro;
@@ -38,16 +40,20 @@ public class EnderecoModel {
 	
 	@Column(nullable = false, length = 8)
 	private String cep;
+	
+	@ManyToOne
+	@JoinColumn(name = "cliente_id", nullable = false)
+	private ClienteModel cliente;
 
 	public EnderecoModel() {
 	}
 
 	public UUID getId() {
-		return id;
+		return enderecoId;
 	}
 
 	public void setId(UUID id) {
-		this.id = id;
+		this.enderecoId = id;
 	}
 
 	public String getLogradouro() {
