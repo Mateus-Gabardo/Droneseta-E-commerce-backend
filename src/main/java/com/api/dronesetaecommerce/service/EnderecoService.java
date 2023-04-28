@@ -1,4 +1,4 @@
-package com.api.dronesetaecommerce.services;
+package com.api.dronesetaecommerce.service;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.api.dronesetaecommerce.model.EnderecoModel;
-import com.api.dronesetaecommerce.repositories.EnderecoRepository;
+import com.api.dronesetaecommerce.repository.EnderecoRepository;
 
 @Service
 public class EnderecoService {

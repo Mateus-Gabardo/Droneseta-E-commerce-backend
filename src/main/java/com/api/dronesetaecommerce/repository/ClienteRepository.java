@@ -1,4 +1,4 @@
-package com.api.dronesetaecommerce.repositories;
+package com.api.dronesetaecommerce.repository;
 
 import java.util.Optional;
 import java.util.UUID;

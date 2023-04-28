@@ -1,4 +1,4 @@
-package com.api.dronesetaecommerce.controllers;
+package com.api.dronesetaecommerce.controller;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.api.dronesetaecommerce.dto.EnderecoDto;
 import com.api.dronesetaecommerce.exception.ObjectNotFoundException;
 import com.api.dronesetaecommerce.model.EnderecoModel;
-import com.api.dronesetaecommerce.services.EnderecoService;
+import com.api.dronesetaecommerce.service.EnderecoService;
 
 import javax.validation.Valid;
 
