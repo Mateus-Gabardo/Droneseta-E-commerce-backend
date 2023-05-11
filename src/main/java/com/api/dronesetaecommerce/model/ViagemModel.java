@@ -3,8 +3,10 @@ package com.api.dronesetaecommerce.model;
 import java.util.Date;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,9 +31,13 @@ public class ViagemModel {
 	@Column
 	private StatusViagem status;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "droneId")
 	private DroneModel drone;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "enderecoId")
+	private EnderecoModel enderecoModel;
 
 	public UUID getViagemId() {
 		return viagemId;
@@ -71,6 +77,14 @@ public class ViagemModel {
 
 	public void setDrone(DroneModel drone) {
 		this.drone = drone;
+	}
+
+	public EnderecoModel getEnderecoModel() {
+		return enderecoModel;
+	}
+
+	public void setEnderecoModel(EnderecoModel enderecoModel) {
+		this.enderecoModel = enderecoModel;
 	}
 
 }
