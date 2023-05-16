@@ -9,6 +9,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -34,6 +36,10 @@ public class ProdutoModel {
 	
 	@Column
 	private Integer qtd_por_tamanho;
+	
+	@ManyToOne
+	@JoinColumn(name = "pedidoId")
+	private PedidoModel pedido;
 
 	public UUID getProdutoId() {
 		return produtoId;
@@ -86,4 +92,13 @@ public class ProdutoModel {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+	public PedidoModel getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(PedidoModel pedido) {
+		this.pedido = pedido;
+	}	
+	
 }

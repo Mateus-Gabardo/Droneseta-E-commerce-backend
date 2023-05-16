@@ -3,6 +3,8 @@ package com.api.dronesetaecommerce.dto;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 public class ClienteDto {	
 
 	@NotBlank

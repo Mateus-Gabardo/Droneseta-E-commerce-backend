@@ -1,10 +1,9 @@
 package com.api.dronesetaecommerce.model;
 
-import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -14,73 +13,54 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "viagem")
-public class ViagemModel {
-	
+@Table(name = "pedido")
+public class PedidoModel {
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private UUID viagemId;
-
-	@Column(nullable = false)
-	private int qtdCamisetas;
-
-	@Column
-	private Date dataHora;
-
+	private UUID pedidoId;
+	
+	@ManyToOne
+	@JoinColumn(name = "clienteId")
+	private ClienteModel cliente;
+	
 	@Enumerated(EnumType.STRING)
-	private StatusViagem status;
-
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "droneId")
-	private DroneModel drone;
+	private StatusPedido status;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "enderecoId")
 	private EnderecoModel enderecoModel;
+	
+	@OneToMany(mappedBy = "pedido")
+	private List<ProdutoModel> produtos;
 
-	public UUID getViagemId() {
-		return viagemId;
+	public UUID getPedidoId() {
+		return pedidoId;
 	}
 
-	public void setViagemId(UUID viagemId) {
-		this.viagemId = viagemId;
+	public void setPedidoId(UUID pedidoId) {
+		this.pedidoId = pedidoId;
 	}
 
-	public int getQtdCamisetas() {
-		return qtdCamisetas;
+	public ClienteModel getCliente() {
+		return cliente;
 	}
 
-	public void setQtdCamisetas(int qtdCamisetas) {
-		this.qtdCamisetas = qtdCamisetas;
+	public void setCliente(ClienteModel cliente) {
+		this.cliente = cliente;
 	}
 
-	public Date getDataHora() {
-		return dataHora;
-	}
-
-	public void setDataHora(Date dataHora) {
-		this.dataHora = dataHora;
-	}
-
-	public StatusViagem getStatus() {
+	public StatusPedido getStatus() {
 		return status;
 	}
 
-	public void setStatus(StatusViagem status) {
+	public void setStatus(StatusPedido status) {
 		this.status = status;
-	}
-
-	public DroneModel getDrone() {
-		return drone;
-	}
-
-	public void setDrone(DroneModel drone) {
-		this.drone = drone;
 	}
 
 	public EnderecoModel getEnderecoModel() {
@@ -91,8 +71,17 @@ public class ViagemModel {
 		this.enderecoModel = enderecoModel;
 	}
 
+	public List<ProdutoModel> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<ProdutoModel> produtos) {
+		this.produtos = produtos;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
+	
+	
 }

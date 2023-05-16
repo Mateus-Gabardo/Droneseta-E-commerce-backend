@@ -85,11 +85,11 @@ public class ViagemController {
 
 	
 	protected String getMessageViagemNotFound() {
-		return "Drone não encontrado";
+		return "Viagem não encontrado";
 	}
 
 	protected String getMessageViagemDeleted() {
-		return "Drone deletado com sucesso!";
+		return "Viagem deletado com sucesso!";
 	}
 
 }
