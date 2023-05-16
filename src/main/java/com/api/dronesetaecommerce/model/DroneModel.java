@@ -12,6 +12,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "drone")
 public class DroneModel {
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -56,6 +57,10 @@ public class DroneModel {
 
 	public void setCapacidade(int capacidade) {
 		this.capacidade = capacidade;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 }

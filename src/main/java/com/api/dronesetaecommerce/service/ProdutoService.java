@@ -1,5 +1,6 @@
 package com.api.dronesetaecommerce.service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -34,6 +35,10 @@ public class ProdutoService {
 
 	public void delete(ProdutoModel productModel) {
 		this.produtoRepository.delete(productModel);
+	}
+	
+	public List<ProdutoModel> findAll(List<UUID> idProdutos){
+		return produtoRepository.findAllByProdutoIdIn(idProdutos);
 	}
 	
 }
