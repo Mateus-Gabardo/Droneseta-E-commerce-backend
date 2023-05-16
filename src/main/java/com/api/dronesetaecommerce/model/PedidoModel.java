@@ -1,5 +1,8 @@
 package com.api.dronesetaecommerce.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -17,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
+@Getter @Setter
 @Table(name = "pedido")
 public class PedidoModel {
 	private static final long serialVersionUID = 1L;
@@ -28,56 +32,16 @@ public class PedidoModel {
 	@ManyToOne
 	@JoinColumn(name = "clienteId")
 	private ClienteModel cliente;
-	
+
 	@Enumerated(EnumType.STRING)
 	private StatusPedido status;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "enderecoId")
 	private EnderecoModel enderecoModel;
-	
+
 	@OneToMany(mappedBy = "pedido")
 	private List<ProdutoModel> produtos;
-
-	public UUID getPedidoId() {
-		return pedidoId;
-	}
-
-	public void setPedidoId(UUID pedidoId) {
-		this.pedidoId = pedidoId;
-	}
-
-	public ClienteModel getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(ClienteModel cliente) {
-		this.cliente = cliente;
-	}
-
-	public StatusPedido getStatus() {
-		return status;
-	}
-
-	public void setStatus(StatusPedido status) {
-		this.status = status;
-	}
-
-	public EnderecoModel getEnderecoModel() {
-		return enderecoModel;
-	}
-
-	public void setEnderecoModel(EnderecoModel enderecoModel) {
-		this.enderecoModel = enderecoModel;
-	}
-
-	public List<ProdutoModel> getProdutos() {
-		return produtos;
-	}
-
-	public void setProdutos(List<ProdutoModel> produtos) {
-		this.produtos = produtos;
-	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
