@@ -25,7 +25,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.dronesetaecommerce.dto.ViagemDto;
 import com.api.dronesetaecommerce.exception.ObjectNotFoundException;
+import com.api.dronesetaecommerce.model.DroneModel;
+import com.api.dronesetaecommerce.model.EnderecoModel;
 import com.api.dronesetaecommerce.model.ViagemModel;
+import com.api.dronesetaecommerce.service.DroneService;
+import com.api.dronesetaecommerce.service.EnderecoService;
 import com.api.dronesetaecommerce.service.ViagemService;
 
 @RestController
@@ -36,11 +40,38 @@ public class ViagemController {
 	@Autowired
 	private ViagemService viagemService;
 	
+	@Autowired
+	private DroneService droneService;
+	
+	@Autowired
+	private EnderecoService enderecoService;
+	
 	@PostMapping
 	public ResponseEntity<Object> saveViagem(@RequestBody @Valid ViagemDto viagemDto) {
 		ViagemModel viagemModel = new ViagemModel();
 		BeanUtils.copyProperties(viagemDto, viagemModel);
+		
+		addViagem(viagemDto, viagemModel);
+		addEndereco(viagemDto, viagemModel);
 		return ResponseEntity.status(HttpStatus.CREATED).body(this.viagemService.save(viagemModel));
+	}
+
+	private void addEndereco(ViagemDto viagemDto, ViagemModel viagemModel) {
+		if(viagemDto.getEnderecoId() != null) {
+			Optional<EnderecoModel> endereco = enderecoService.findById(viagemDto.getEnderecoId());
+			if(endereco.isPresent()) {
+				viagemModel.setEnderecoModel(endereco.get());
+			}
+		}
+	}
+
+	private void addViagem(ViagemDto viagemDto, ViagemModel viagemModel) {
+		if(viagemDto.getDroneId() != null) {
+			Optional<DroneModel> drone = droneService.findById(viagemDto.getDroneId());
+			if(drone.isPresent()) {
+				viagemModel.setDrone(drone.get());
+			}
+		}
 	}
 	
 	@GetMapping
@@ -70,15 +101,18 @@ public class ViagemController {
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<Object> updateViagem(@PathVariable(value = "id") UUID id,
-			@RequestBody @Valid ViagemDto droneDto) {
+			@RequestBody @Valid ViagemDto viagemDto) {
 
 		Optional<ViagemModel> viagemModelOptional = this.viagemService.findById(id);
 		if (!viagemModelOptional.isPresent()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(getMessageViagemNotFound());
 		}
 		ViagemModel viagemModel = new ViagemModel();
-		BeanUtils.copyProperties(droneDto, viagemModel);
+		BeanUtils.copyProperties(viagemDto, viagemModel);
 		viagemModel.setViagemId(id);
+		
+		addViagem(viagemDto, viagemModel);
+		addEndereco(viagemDto, viagemModel);
 		
 		return ResponseEntity.status(HttpStatus.OK).body(this.viagemService.save(viagemModel));
 	}

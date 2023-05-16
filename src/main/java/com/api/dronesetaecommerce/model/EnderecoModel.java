@@ -42,7 +42,7 @@ public class EnderecoModel {
 	private String cep;
 	
 	@ManyToOne
-	@JoinColumn(name = "cliente_id", nullable = false)
+	@JoinColumn(name = "cliente_id")
 	private ClienteModel cliente;
 
 	public EnderecoModel() {
