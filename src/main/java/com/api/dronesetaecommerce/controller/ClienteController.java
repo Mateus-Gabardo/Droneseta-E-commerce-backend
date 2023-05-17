@@ -90,7 +90,7 @@ public class ClienteController {
 	public ResponseEntity<Object> login(@RequestBody ClienteDto clienteDto) {
 		Optional<ClienteModel> clienteModelOptional = service.findByCpf(clienteDto.getCpf());
 		if(clienteModelOptional.isPresent() && clienteModelOptional.get().checkSenha(clienteDto.getSenha())) {
-			return new ResponseEntity<>(HttpStatus.OK);
+			return ResponseEntity.ok().body(clienteModelOptional.get());
 		}
 		return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 	}
