@@ -38,7 +38,7 @@ public class ClienteModel {
 	
 	@Column
 	@Enumerated(EnumType.STRING)
-	private TipoCliente tipoCliente = TipoCliente.NORMAL;
+	private TipoCliente tipoCliente;
 	
 	@OneToMany(mappedBy = "cliente")
 	private Set<EnderecoModel> enderecos;
@@ -112,4 +112,19 @@ public class ClienteModel {
 		return serialVersionUID;
 	}
 
+	public UUID getClienteId() {
+		return clienteId;
+	}
+
+	public void setClienteId(UUID clienteId) {
+		this.clienteId = clienteId;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public void setTipoCliente(TipoCliente tipoCliente) {
+		this.tipoCliente = tipoCliente;
+	}
 }

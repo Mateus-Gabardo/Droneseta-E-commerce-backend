@@ -36,11 +36,11 @@ public class PedidoModel {
 	@Enumerated(EnumType.STRING)
 	private StatusPedido status;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "enderecoId")
 	private EnderecoModel enderecoModel;
 
-	@OneToMany(mappedBy = "pedido")
+	@OneToMany(mappedBy = "pedido", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private List<ProdutoModel> produtos;
 
 	public static long getSerialversionuid() {
