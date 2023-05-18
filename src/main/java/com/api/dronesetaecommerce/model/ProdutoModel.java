@@ -16,6 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Getter @Setter
 @Table(name = "produto")
@@ -45,6 +47,7 @@ public class ProdutoModel {
 	private Integer quantidade;
 
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "pedidoId")
 	private PedidoModel pedido;
 
