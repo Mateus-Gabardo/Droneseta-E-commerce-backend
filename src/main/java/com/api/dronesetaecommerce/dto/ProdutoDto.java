@@ -6,8 +6,15 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.api.dronesetaecommerce.model.TamanhoCamiseta;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.UUID;
 
 public class ProdutoDto {
+
+	@JsonIgnore
+	private UUID productId;
+
 	@NotBlank
 	@Size(max = 150, message = "O nome inserido excede o valor permitido para o campo.")
 	private String nome;
