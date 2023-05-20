@@ -29,7 +29,6 @@ import com.api.dronesetaecommerce.model.EnderecoModel;
 import com.api.dronesetaecommerce.model.PedidoModel;
 import com.api.dronesetaecommerce.model.ProdutoModel;
 import com.api.dronesetaecommerce.model.StatusPedido;
-import com.api.dronesetaecommerce.repository.ProdutoRepository;
 import com.api.dronesetaecommerce.service.ClienteService;
 import com.api.dronesetaecommerce.service.EnderecoService;
 import com.api.dronesetaecommerce.service.PedidoService;
@@ -52,9 +51,6 @@ public class PedidoController {
 	@Autowired
 	private EnderecoService enderecoService;
 	
-	@Autowired
-	private ProdutoRepository produtoRepository;
-	
 	@PostMapping
 	public ResponseEntity<Object> savePedido(@RequestBody @Valid PedidoDto pedidoDto) {
 		PedidoModel pedidoModel = new PedidoModel();
@@ -64,7 +60,7 @@ public class PedidoController {
 		}
 		Optional<EnderecoModel> endereco = enderecoService.findById(pedidoDto.getEnderecoId());
 		if(endereco.isPresent()) {
-			pedidoModel.setEnderecoModel(endereco.get());
+			pedidoModel.setEndereco(endereco.get());
 		}
 
 		List<ProdutoModel> produtos = produtoService.findAll(pedidoDto.getProdutoId());		
@@ -76,12 +72,7 @@ public class PedidoController {
 			produto.setQuantidade(produto.getQuantidade() - 1);
 		}
 		
-		this.pedidoService.save(pedidoModel);
-		for(ProdutoModel p : produtos) {
-			p.setPedido(pedidoModel);
-			produtoRepository.saveAndFlush(p);
-		}
-		
+		this.pedidoService.save(pedidoModel);		
 		return ResponseEntity.status(HttpStatus.CREATED).body(pedidoModel);
 	}
 	

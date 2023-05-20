@@ -7,7 +7,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,7 +34,7 @@ public class PedidoModel {
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "enderecoId")
-	private EnderecoModel enderecoModel;
+	private EnderecoModel endereco;
 
 	@ManyToMany
 	@JoinTable(
@@ -75,12 +74,12 @@ public class PedidoModel {
 		this.status = status;
 	}
 
-	public EnderecoModel getEnderecoModel() {
-		return enderecoModel;
+	public EnderecoModel getEndereco() {
+		return endereco;
 	}
 
-	public void setEnderecoModel(EnderecoModel enderecoModel) {
-		this.enderecoModel = enderecoModel;
+	public void setEndereco(EnderecoModel endereco) {
+		this.endereco = endereco;
 	}
 
 	public List<ProdutoModel> getProdutos() {
