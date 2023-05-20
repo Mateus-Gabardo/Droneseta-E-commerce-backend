@@ -63,6 +63,11 @@ public class ProdutoController {
 		return ResponseEntity.status(HttpStatus.OK).body(productModelOptional.get());
 	}
 	
+	@GetMapping("/produtoMaisVendido")
+	public ResponseEntity<Object> getOProdutosMaisVendidos() {
+		return ResponseEntity.status(HttpStatus.OK).body(this.produtoService.getProdutosMaisVendidos());
+	}
+	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> deleteProduct(@PathVariable(value = "id") UUID id) throws ObjectNotFoundException {
 		Optional<ProdutoModel> productModelOptional = this.produtoService.findById(id);

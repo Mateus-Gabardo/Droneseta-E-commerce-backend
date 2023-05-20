@@ -63,7 +63,9 @@ public class PedidoController {
 			pedidoModel.setEndereco(endereco.get());
 		}
 
-		List<ProdutoModel> produtos = produtoService.findAll(pedidoDto.getProdutoId());		
+		List<ProdutoModel> produtos = produtoService.findAll(pedidoDto.getProdutoId());	
+		
+		this.pedidoService.save(pedidoModel);
 
 		pedidoModel.setProdutos(produtos);
 		pedidoModel.setCliente(cliente.get());
