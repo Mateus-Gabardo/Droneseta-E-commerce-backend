@@ -29,6 +29,7 @@ import com.api.dronesetaecommerce.model.EnderecoModel;
 import com.api.dronesetaecommerce.model.PedidoModel;
 import com.api.dronesetaecommerce.model.ProdutoModel;
 import com.api.dronesetaecommerce.model.StatusPedido;
+import com.api.dronesetaecommerce.repository.ProdutoRepository;
 import com.api.dronesetaecommerce.service.ClienteService;
 import com.api.dronesetaecommerce.service.EnderecoService;
 import com.api.dronesetaecommerce.service.PedidoService;
@@ -51,6 +52,9 @@ public class PedidoController {
 	@Autowired
 	private EnderecoService enderecoService;
 	
+	@Autowired
+	private ProdutoRepository produtoRepository;
+	
 	@PostMapping
 	public ResponseEntity<Object> savePedido(@RequestBody @Valid PedidoDto pedidoDto) {
 		PedidoModel pedidoModel = new PedidoModel();
@@ -62,7 +66,9 @@ public class PedidoController {
 		if(endereco.isPresent()) {
 			pedidoModel.setEnderecoModel(endereco.get());
 		}
+
 		List<ProdutoModel> produtos = produtoService.findAll(pedidoDto.getProdutoId());		
+
 		pedidoModel.setProdutos(produtos);
 		pedidoModel.setCliente(cliente.get());
 		pedidoModel.setStatus(StatusPedido.AGUARDANDO_ENVIO);
@@ -70,7 +76,13 @@ public class PedidoController {
 			produto.setQuantidade(produto.getQuantidade() - 1);
 		}
 		
-		return ResponseEntity.status(HttpStatus.CREATED).body(this.pedidoService.save(pedidoModel));
+		this.pedidoService.save(pedidoModel);
+		for(ProdutoModel p : produtos) {
+			p.setPedido(pedidoModel);
+			produtoRepository.saveAndFlush(p);
+		}
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body(pedidoModel);
 	}
 	
 	@GetMapping
@@ -100,12 +112,12 @@ public class PedidoController {
 	
 	@PostMapping("/updateStatus/{id}")
 	public ResponseEntity<Object> updateStatusPedido(@PathVariable(value = "id") UUID id, 
-													 @RequestBody StatusPedido status) throws ObjectNotFoundException {
+													 @RequestBody @Valid PedidoDto pedidoDto) throws ObjectNotFoundException {
 		Optional<PedidoModel> pedido = pedidoService.findById(id);
 		if(!pedido.isPresent()) {
 			throw new ObjectNotFoundException(getMessagePedidoNotFound());
 		}
-		pedido.get().setStatus(status);
+		pedido.get().setStatus(pedidoDto.getStatus());
 		
 		return ResponseEntity.status(HttpStatus.OK).body(this.pedidoService.save(pedido.get()));
 	}
