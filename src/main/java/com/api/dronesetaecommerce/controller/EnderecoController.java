@@ -60,6 +60,15 @@ public class EnderecoController {
 		return ResponseEntity.status(HttpStatus.OK).body(enderecoModelOptional.get());
 	}
 	
+	@GetMapping("/cliente/{clienteId}")
+	public ResponseEntity<Object> get1(@PathVariable("clienteId") UUID clienteId) {
+		Optional<EnderecoModel> enderecoModelOptional = service.findByClienteId(clienteId);
+		if(!enderecoModelOptional.isPresent()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(getMessageEnderecoNotFound());
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(enderecoModelOptional.get());
+	}
+	
 	@PostMapping
 	public ResponseEntity<Object> create(@RequestBody @Valid EnderecoDto enderecoDto) {
 		EnderecoModel enderecoModel = new EnderecoModel();
