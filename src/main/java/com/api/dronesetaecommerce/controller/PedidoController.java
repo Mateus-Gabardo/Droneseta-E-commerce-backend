@@ -91,6 +91,15 @@ public class PedidoController {
 		return ResponseEntity.status(HttpStatus.OK).body(pedidoModelOptional.get());
 	}
 	
+	@GetMapping("/byCliente/{id}")
+	public ResponseEntity<Object> getAllPedidosByCliente(@PathVariable(value = "id") UUID id) {
+		Optional<ClienteModel> clienteOptional = clienteService.findById(id);
+		if(!clienteOptional.isPresent()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado");
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(pedidoService.findByClienteId(id));
+	}
+	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> deletePedido(@PathVariable(value = "id") UUID id) throws ObjectNotFoundException {
 		Optional<PedidoModel> pedidoModelOptional = this.pedidoService.findById(id);
@@ -99,6 +108,19 @@ public class PedidoController {
 		}
 		this.pedidoService.delete(pedidoModelOptional.get());
 		return ResponseEntity.status(HttpStatus.OK).body(getMessagePedidoDeleted());
+	}
+	
+	@PostMapping("/confirmarPagamento/{id}")
+	public ResponseEntity<Object> confirmarPagamento(@PathVariable(value = "id") UUID id) throws ObjectNotFoundException{
+		Optional<PedidoModel> pedido = pedidoService.findById(id);
+		if(!pedido.isPresent()) {
+			throw new ObjectNotFoundException(getMessagePedidoNotFound());
+		}
+		if(pedido.get().getStatus() == StatusPedido.AGUARDANDO_PAGAMENTO) {
+			pedido.get().setStatus(StatusPedido.AGUARDANDO_ENVIO);
+			return ResponseEntity.status(HttpStatus.OK).body(this.pedidoService.save(pedido.get()));			
+		}		
+		return ResponseEntity.status(HttpStatus.OK).body("Pedido não esta Aguardando Pagamento");
 	}
 	
 	@PostMapping("/updateStatus/{id}")

@@ -1,5 +1,6 @@
 package com.api.dronesetaecommerce.service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -19,7 +20,7 @@ public class PedidoService {
 	private PedidoRepository repository;
 	
 	public Page<PedidoModel> findAll(Pageable pageable) {
-		return repository.findAll(pageable);
+		return repository.findAllFiltered(pageable);
 	}
 
 	public Optional<PedidoModel> findById(UUID id) {
@@ -33,6 +34,10 @@ public class PedidoService {
 	
 	public void delete(PedidoModel pedido) {
 		repository.delete(pedido);
+	}
+	
+	public List<PedidoModel> findByClienteId(UUID clienteId){
+		return repository.findAllByClienteClienteIdAndClienteExcludedAtNotNull(clienteId);
 	}
 	
 }
