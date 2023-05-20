@@ -62,10 +62,13 @@ public class PedidoController {
 		if(endereco.isPresent()) {
 			pedidoModel.setEnderecoModel(endereco.get());
 		}
-		List<ProdutoModel> produtos = produtoService.findAll(pedidoDto.getProdutos());		
+		List<ProdutoModel> produtos = produtoService.findAll(pedidoDto.getProdutoId());		
 		pedidoModel.setProdutos(produtos);
 		pedidoModel.setCliente(cliente.get());
-		pedidoModel.setStatus(StatusPedido.ABERTO);
+		pedidoModel.setStatus(StatusPedido.AGUARDANDO_ENVIO);
+		for(ProdutoModel produto : produtos) {
+			produto.setQuantidade(produto.getQuantidade() - 1);
+		}
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(this.pedidoService.save(pedidoModel));
 	}
@@ -105,7 +108,7 @@ public class PedidoController {
 		pedido.get().setStatus(status);
 		
 		return ResponseEntity.status(HttpStatus.OK).body(this.pedidoService.save(pedido.get()));
-	}	
+	}
 	
 	protected String getMessagePedidoNotFound() {
 		return "Pedido não encontrado";

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.api.dronesetaecommerce.dto.ClienteDto;
 import com.api.dronesetaecommerce.exception.ObjectNotFoundException;
 import com.api.dronesetaecommerce.model.ClienteModel;
+import com.api.dronesetaecommerce.model.TipoCliente;
 import com.api.dronesetaecommerce.service.ClienteService;
 
 import javax.validation.Valid;
@@ -59,7 +60,10 @@ public class ClienteController {
 	@PostMapping
 	public ResponseEntity<Object> create(@RequestBody @Valid ClienteDto clienteDto) {
 		ClienteModel clienteModel = new ClienteModel();
-		BeanUtils.copyProperties(clienteDto, clienteModel);
+		if(clienteDto.getTipoCliente() == null) {
+			clienteDto.setTipoCliente(TipoCliente.NORMAL);
+		}
+		BeanUtils.copyProperties(clienteDto, clienteModel);		
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(clienteModel));
 	}
 	
@@ -72,7 +76,7 @@ public class ClienteController {
 		}
 		ClienteModel clienteModel = new ClienteModel();
 		BeanUtils.copyProperties(clienteDto, clienteModel);
-		clienteModel.setId(clienteModelOptional.get().getId());
+		clienteModel.setId(id);
 		return ResponseEntity.status(HttpStatus.OK).body(service.save(clienteModel));
 	}
 	

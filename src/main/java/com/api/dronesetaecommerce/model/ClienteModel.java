@@ -1,6 +1,5 @@
 package com.api.dronesetaecommerce.model;
 
-import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -10,7 +9,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -38,10 +36,7 @@ public class ClienteModel {
 	
 	@Column
 	@Enumerated(EnumType.STRING)
-	private TipoCliente tipoCliente = TipoCliente.NORMAL;
-	
-	@OneToMany(mappedBy = "cliente")
-	private Set<EnderecoModel> enderecos;
+	private TipoCliente tipoCliente;
 
 	public ClienteModel() {
 	}
@@ -88,24 +83,16 @@ public class ClienteModel {
 		return cartaoCredito;
 	}
 
-	public void setCartaoCredito(String cartao_credito) {
-		this.cartaoCredito = cartao_credito;
+	public void setCartaoCredito(String cartaoCredito) {
+		this.cartaoCredito = cartaoCredito;
 	}
 
 	public TipoCliente getTipoCliente() {
 		return tipoCliente;
 	}
 
-	public void setTipo_cliente(TipoCliente tipo_cliente) {
-		this.tipoCliente = tipo_cliente;
-	}
-
-	public Set<EnderecoModel> getEnderecos() {
-		return enderecos;
-	}
-
-	public void setEnderecos(Set<EnderecoModel> enderecos) {
-		this.enderecos = enderecos;
+	public void setTipoCliente(TipoCliente tipoCliente) {
+		this.tipoCliente = tipoCliente;
 	}
 	
 	public static long getSerialVersionUID() {

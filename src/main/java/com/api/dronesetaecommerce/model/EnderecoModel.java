@@ -2,8 +2,10 @@ package com.api.dronesetaecommerce.model;
 
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -41,9 +43,9 @@ public class EnderecoModel {
 	@Column(nullable = false, length = 8)
 	private String cep;
 	
-	@ManyToOne
-	@JoinColumn(name = "cliente_id")
-	private ClienteModel cliente;
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "clienteId")
+	private ClienteModel clienteId;
 
 	public EnderecoModel() {
 	}
@@ -112,6 +114,22 @@ public class EnderecoModel {
 		this.cep = cep;
 	}
 	
+	public UUID getEnderecoId() {
+		return enderecoId;
+	}
+
+	public void setEnderecoId(UUID enderecoId) {
+		this.enderecoId = enderecoId;
+	}
+
+	public ClienteModel getClienteId() {
+		return clienteId;
+	}
+
+	public void setClienteId(ClienteModel clienteId) {
+		this.clienteId = clienteId;
+	}
+
 	public static long getSerialVersionUID() {
 		return serialVersionUID;
 	}

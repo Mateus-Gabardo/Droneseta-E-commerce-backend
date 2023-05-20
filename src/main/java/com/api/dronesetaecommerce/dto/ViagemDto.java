@@ -3,6 +3,8 @@ package com.api.dronesetaecommerce.dto;
 import java.util.Date;
 import java.util.UUID;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Max;
 
 import com.api.dronesetaecommerce.model.StatusViagem;
@@ -19,6 +21,11 @@ public class ViagemDto {
 	private UUID droneId;
 	
 	private UUID enderecoId;
+	
+	private UUID pedidoId;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date statusUpdate;
 
 	public int getQtdCamisetas() {
 		return qtdCamisetas;
@@ -58,5 +65,21 @@ public class ViagemDto {
 
 	public void setEnderecoId(UUID enderecoId) {
 		this.enderecoId = enderecoId;
+	}
+
+	public Date getStatusUpdate() {
+		return statusUpdate;
+	}
+
+	public void setStatusUpdate(Date statusUpdate) {
+		this.statusUpdate = statusUpdate;
+	}
+
+	public UUID getPedidoId() {
+		return pedidoId;
+	}
+
+	public void setPedidoId(UUID viagemId) {
+		this.pedidoId = viagemId;
 	}
 }

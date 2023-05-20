@@ -1,8 +1,10 @@
 package com.api.dronesetaecommerce.repository;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.api.dronesetaecommerce.model.DroneModel;
@@ -10,4 +12,6 @@ import com.api.dronesetaecommerce.model.DroneModel;
 @Repository
 public interface DroneRepository extends JpaRepository<DroneModel, UUID>{
 
+	@Query(value = "SELECT * FROM drone WHERE status=?", nativeQuery = true)
+	public List<DroneModel> findByStatus(String status);
 }

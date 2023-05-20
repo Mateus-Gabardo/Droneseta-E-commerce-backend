@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.api.dronesetaecommerce.dto.DroneDto;
 import com.api.dronesetaecommerce.exception.ObjectNotFoundException;
 import com.api.dronesetaecommerce.model.DroneModel;
+import com.api.dronesetaecommerce.model.StatusDrone;
 import com.api.dronesetaecommerce.service.DroneService;
 
 @RestController
@@ -40,6 +41,7 @@ public class DroneController {
 	public ResponseEntity<Object> saveDrone(@RequestBody @Valid DroneDto droneDto) {
 		DroneModel droneModel = new DroneModel();
 		BeanUtils.copyProperties(droneDto, droneModel);
+		droneModel.setStatus(StatusDrone.DISPONIVEL);
 		return ResponseEntity.status(HttpStatus.CREATED).body(this.droneService.save(droneModel));
 	}
 
@@ -79,6 +81,7 @@ public class DroneController {
 		DroneModel droneModel = new DroneModel();
 		BeanUtils.copyProperties(droneDto, droneModel);
 		droneModel.setDroneId(droneModelOptional.get().getDroneId());
+		droneModel.setStatus(droneModelOptional.get().getStatus());
 		return ResponseEntity.status(HttpStatus.OK).body(this.droneService.save(droneModel));
 	}
 

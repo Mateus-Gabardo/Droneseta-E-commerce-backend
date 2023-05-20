@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.dronesetaecommerce.dto.EnderecoDto;
 import com.api.dronesetaecommerce.exception.ObjectNotFoundException;
+import com.api.dronesetaecommerce.model.ClienteModel;
 import com.api.dronesetaecommerce.model.EnderecoModel;
+import com.api.dronesetaecommerce.service.ClienteService;
 import com.api.dronesetaecommerce.service.EnderecoService;
 
 import javax.validation.Valid;
@@ -36,11 +38,13 @@ public class EnderecoController {
 	@Autowired
 	private EnderecoService service;
 	
+	@Autowired
+	private ClienteService clienteService;
+	
 	@GetMapping
 	public ResponseEntity<Page<EnderecoModel>> getAll(@PageableDefault(
 															page = 0,
 															size = 10,
-															sort = "logradouro",
 															direction = Sort.Direction.ASC)
 															Pageable pageable
 															) {
@@ -60,7 +64,18 @@ public class EnderecoController {
 	public ResponseEntity<Object> create(@RequestBody @Valid EnderecoDto enderecoDto) {
 		EnderecoModel enderecoModel = new EnderecoModel();
 		BeanUtils.copyProperties(enderecoDto, enderecoModel);
+		
+		addCliente(enderecoDto, enderecoModel);
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(enderecoModel));
+	}
+	
+	private void addCliente(EnderecoDto enderecoDto, EnderecoModel enderecoModel) {
+		if(enderecoDto.getClienteId() != null) {
+			Optional<ClienteModel> cliente = clienteService.findById(enderecoDto.getClienteId());
+			if(cliente.isPresent()) {
+				enderecoModel.setClienteId(cliente.get());
+			}
+		}
 	}
 	
 	@PutMapping("/{id}")
@@ -73,6 +88,8 @@ public class EnderecoController {
 		EnderecoModel enderecoModel = new EnderecoModel();
 		BeanUtils.copyProperties(enderecoDto, enderecoModel);
 		enderecoModel.setId(enderecoModelOptional.get().getId());
+		
+		addCliente(enderecoDto,enderecoModel);
 		return ResponseEntity.status(HttpStatus.OK).body(service.save(enderecoModel));
 	}
 	
