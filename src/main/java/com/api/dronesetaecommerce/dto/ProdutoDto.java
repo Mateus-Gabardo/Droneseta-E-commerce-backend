@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.api.dronesetaecommerce.model.TamanhoCamiseta;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.Getter;
@@ -20,6 +21,10 @@ import java.util.UUID;
 @Data
 @Getter @Setter
 public class ProdutoDto {
+
+	@JsonIgnore
+	private UUID productId;
+
 	@NotBlank
 	@Size(max = 150, message = "O nome inserido excede o valor permitido para o campo.")
 	private String nome;
