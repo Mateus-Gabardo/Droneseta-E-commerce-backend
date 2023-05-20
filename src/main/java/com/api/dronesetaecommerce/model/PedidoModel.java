@@ -35,7 +35,7 @@ public class PedidoModel {
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "enderecoId")
-	private EnderecoModel enderecoModel;
+	private EnderecoModel endereco;
 
 	@ManyToMany
 	@JoinTable(
@@ -75,12 +75,12 @@ public class PedidoModel {
 		this.status = status;
 	}
 
-	public EnderecoModel getEnderecoModel() {
-		return enderecoModel;
+	public EnderecoModel getEndereco() {
+		return endereco;
 	}
 
-	public void setEnderecoModel(EnderecoModel enderecoModel) {
-		this.enderecoModel = enderecoModel;
+	public void setEndereco(EnderecoModel endereco) {
+		this.endereco = endereco;
 	}
 
 	public List<ProdutoModel> getProdutos() {
