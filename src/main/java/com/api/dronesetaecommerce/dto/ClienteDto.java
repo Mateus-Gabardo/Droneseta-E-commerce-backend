@@ -3,7 +3,7 @@ package com.api.dronesetaecommerce.dto;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.br.CPF;
+import com.api.dronesetaecommerce.model.TipoCliente;
 
 public class ClienteDto {	
 
@@ -16,6 +16,10 @@ public class ClienteDto {
 	
 	@Size(min = 8, max = 50, message = "A senha precisa ter mais de 8 dígitos e menos de 50 dígitos")
 	private String senha;
+	
+	private TipoCliente tipoCliente;
+	
+	private String cartaoCredito;
 
 	public String getNome() {
 		return nome;
@@ -39,6 +43,22 @@ public class ClienteDto {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public String getCartaoCredito() {
+		return cartaoCredito;
+	}
+
+	public void setCartaoCredito(String cartaoCredito) {
+		this.cartaoCredito = cartaoCredito;
+	}
+
+	public TipoCliente getTipoCliente() {
+		return tipoCliente;
+	}
+
+	public void setTipoCliente(TipoCliente tipoCliente) {
+		this.tipoCliente = tipoCliente;
 	}
 
 }

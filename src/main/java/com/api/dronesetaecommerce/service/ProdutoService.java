@@ -20,7 +20,6 @@ public class ProdutoService {
 	@Autowired
 	private ProdutoRepository produtoRepository;
 	
-	@Transactional
 	public ProdutoModel save(ProdutoModel product) {
 		return this.produtoRepository.save(product);
 	}
