@@ -37,7 +37,7 @@ public class PedidoService {
 	}
 	
 	public List<PedidoModel> findByClienteId(UUID clienteId){
-		return repository.findAllByClienteClienteIdAndClienteExcludedAtNotNull(clienteId);
+		return repository.findAllByClienteClienteIdAndClienteExcludedAtIsNull(clienteId);
 	}
 	
 }
