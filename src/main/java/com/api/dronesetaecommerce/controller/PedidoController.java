@@ -94,12 +94,13 @@ public class PedidoController {
 	}
 	
 	@GetMapping("/byCliente/{id}")
-	public ResponseEntity<Object> getAllPedidosByCliente(@PathVariable(value = "id") UUID id) {
+	public ResponseEntity<Object> getAllPedidosByCliente(@PathVariable(value = "id") UUID id, 
+			@PageableDefault(page = 0, size = 10, direction = Sort.Direction.ASC) Pageable peageable)  {
 		Optional<ClienteModel> clienteOptional = clienteService.findById(id);
 		if(!clienteOptional.isPresent()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado");
 		}
-		return ResponseEntity.status(HttpStatus.OK).body(pedidoService.findByClienteId(id));
+		return ResponseEntity.status(HttpStatus.OK).body(pedidoService.findByClienteId(id, peageable));
 	}
 	
 	@DeleteMapping("/{id}")

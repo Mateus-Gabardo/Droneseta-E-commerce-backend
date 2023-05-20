@@ -20,5 +20,5 @@ public interface PedidoRepository extends JpaRepository<PedidoModel, UUID>{
 	@Query("SELECT p FROM PedidoModel p WHERE p.cliente.excludedAt IS NULL")
     Page<PedidoModel> findAllFiltered(Pageable pageable);
 	
-	List<PedidoModel> findAllByClienteClienteIdAndClienteExcludedAtIsNull(UUID clienteId);
+	Page<PedidoModel> findAllByClienteClienteIdAndClienteExcludedAtIsNull(UUID clienteId, Pageable pageable);
 }

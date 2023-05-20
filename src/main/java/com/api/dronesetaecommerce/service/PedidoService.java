@@ -36,8 +36,8 @@ public class PedidoService {
 		repository.delete(pedido);
 	}
 	
-	public List<PedidoModel> findByClienteId(UUID clienteId){
-		return repository.findAllByClienteClienteIdAndClienteExcludedAtIsNull(clienteId);
+	public Page<PedidoModel> findByClienteId(UUID clienteId, Pageable pageable){
+		return repository.findAllByClienteClienteIdAndClienteExcludedAtIsNull(clienteId, pageable);
 	}
 	
 }
