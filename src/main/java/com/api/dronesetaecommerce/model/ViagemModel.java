@@ -15,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "viagem")
@@ -41,7 +43,15 @@ public class ViagemModel {
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "enderecoId")
-	private EnderecoModel enderecoModel;
+	private EnderecoModel endereco;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "pedidoId")
+	private PedidoModel pedido;
+	
+	@Column
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date statusUpdate;
 
 	public UUID getViagemId() {
 		return viagemId;
@@ -83,12 +93,28 @@ public class ViagemModel {
 		this.drone = drone;
 	}
 
-	public EnderecoModel getEnderecoModel() {
-		return enderecoModel;
+	public EnderecoModel getEndereco() {
+		return endereco;
 	}
 
 	public void setEnderecoModel(EnderecoModel enderecoModel) {
-		this.enderecoModel = enderecoModel;
+		this.endereco = enderecoModel;
+	}
+
+	public Date getStatusUpdate() {
+		return statusUpdate;
+	}
+
+	public void setStatusUpdate(Date statusUpdate) {
+		this.statusUpdate = statusUpdate;
+	}
+
+	public PedidoModel getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(PedidoModel pedido) {
+		this.pedido = pedido;
 	}
 
 	public static long getSerialversionuid() {

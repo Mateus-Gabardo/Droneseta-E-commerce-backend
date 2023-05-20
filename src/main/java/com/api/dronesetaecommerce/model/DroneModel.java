@@ -4,6 +4,8 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,6 +28,9 @@ public class DroneModel {
 
 	@Column
 	private int capacidade;
+	
+	@Enumerated(EnumType.STRING)
+	private StatusDrone status;
 
 	public UUID getDroneId() {
 		return droneId;
@@ -57,6 +62,14 @@ public class DroneModel {
 
 	public void setCapacidade(int capacidade) {
 		this.capacidade = capacidade;
+	}
+
+	public StatusDrone getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusDrone status) {
+		this.status = status;
 	}
 
 	public static long getSerialversionuid() {

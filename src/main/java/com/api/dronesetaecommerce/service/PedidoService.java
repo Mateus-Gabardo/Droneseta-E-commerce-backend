@@ -27,11 +27,12 @@ public class PedidoService {
 	}
 	
 	@Transactional
-	public PedidoModel save(PedidoModel cliente) {
-		return repository.save(cliente);
+	public PedidoModel save(PedidoModel pedido) {
+		return repository.save(pedido);
 	}
 	
-	public void delete(PedidoModel cliente) {
-		repository.delete(cliente);
+	public void delete(PedidoModel pedido) {
+		repository.delete(pedido);
 	}
+	
 }

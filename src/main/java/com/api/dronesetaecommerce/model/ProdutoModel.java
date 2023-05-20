@@ -1,8 +1,5 @@
 package com.api.dronesetaecommerce.model;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -12,14 +9,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Getter @Setter
 @Table(name = "produto")
 public class ProdutoModel {
 	private static final long serialVersionUID = 1L;
@@ -40,19 +34,73 @@ public class ProdutoModel {
 	@Enumerated(EnumType.STRING)
 	private TamanhoCamiseta tamanhoCamiseta;
 	
-	@Column(precision = 2)
+	@Column(precision = 10)
 	private double preco;
 	
 	@Column
 	private Integer quantidade;
 
-	@ManyToOne
-	@JsonIgnore
-	@JoinColumn(name = "pedidoId")
-	private PedidoModel pedido;
+	public ProdutoModel() {
+	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
+
+	public UUID getProdutoId() {
+		return produtoId;
+	}
+
+	public void setProdutoId(UUID produtoId) {
+		this.produtoId = produtoId;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public String getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
+	}
+
+	public TamanhoCamiseta getTamanhoCamiseta() {
+		return tamanhoCamiseta;
+	}
+
+	public void setTamanhoCamiseta(TamanhoCamiseta tamanhoCamiseta) {
+		this.tamanhoCamiseta = tamanhoCamiseta;
+	}
+
+	public double getPreco() {
+		return preco;
+	}
+
+	public void setPreco(double preco) {
+		this.preco = preco;
+	}
+
+	public Integer getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(Integer quantidade) {
+		this.quantidade = quantidade;
+	}
+
 }

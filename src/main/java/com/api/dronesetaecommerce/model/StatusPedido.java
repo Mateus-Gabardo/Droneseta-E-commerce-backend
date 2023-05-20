@@ -1,7 +1,8 @@
 package com.api.dronesetaecommerce.model;
 
 public enum StatusPedido {
-	ABERTO,
-	EM_ANDAMENTO,
+	AGUARDANDO_PAGAMENTO,
+	AGUARDANDO_ENVIO,
+	SAIU_ENTREGA,
 	FINALIZADO;
 }

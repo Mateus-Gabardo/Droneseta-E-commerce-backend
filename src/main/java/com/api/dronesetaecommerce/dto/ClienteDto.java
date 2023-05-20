@@ -17,9 +17,10 @@ public class ClienteDto {
 	@Size(min = 8, max = 50, message = "A senha precisa ter mais de 8 dígitos e menos de 50 dígitos")
 	private String senha;
 	
-	private TipoCliente tipoCliente;
-	
+	@Size(min = 16, max = 16, message = "O cartão precisa ter 16 dígitos")
 	private String cartaoCredito;
+	
+	private TipoCliente tipoCliente;
 
 	public String getNome() {
 		return nome;
@@ -43,6 +44,22 @@ public class ClienteDto {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+	
+	public String getCartaoCredito() {
+		return cartaoCredito;
+	}
+
+	public void setCartaoCredito(String cartaoCredito) {
+		this.cartaoCredito = cartaoCredito;
+	}
+
+	public TipoCliente getTipoCliente() {
+		return tipoCliente;
+	}
+
+	public void setTipoCliente(TipoCliente tipoCliente) {
+		this.tipoCliente = tipoCliente;
 	}
 
 	public String getCartaoCredito() {

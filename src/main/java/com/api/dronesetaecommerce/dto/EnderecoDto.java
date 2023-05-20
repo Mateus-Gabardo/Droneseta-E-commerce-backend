@@ -1,5 +1,7 @@
 package com.api.dronesetaecommerce.dto;
 
+import java.util.UUID;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -31,6 +33,8 @@ public class EnderecoDto {
 	@NotBlank
 	@Size(min = 8, max = 8, message = "O CEP precisa ter 8 caracteres")
 	private String cep;
+	
+	private UUID clienteId;
 	
 	public String getLogradouro() {
 		return logradouro;
@@ -86,6 +90,14 @@ public class EnderecoDto {
 
 	public void setCep(String cep) {
 		this.cep = cep;
+	}
+
+	public UUID getClienteId() {
+		return clienteId;
+	}
+
+	public void setClienteId(UUID clienteId) {
+		this.clienteId = clienteId;
 	}
 
 }

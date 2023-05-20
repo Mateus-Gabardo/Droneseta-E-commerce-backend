@@ -10,7 +10,7 @@ public class PedidoDto {
 	private String cpf;
 	private UUID enderecoId;
 	private StatusPedido status;
-	private List<UUID> produtos;
+	private List<UUID> produtoId;
 	
 	public UUID getEnderecoId() {
 		return enderecoId;
@@ -24,11 +24,11 @@ public class PedidoDto {
 	public void setStatus(StatusPedido status) {
 		this.status = status;
 	}
-	public List<UUID> getProdutos() {
-		return produtos;
+	public List<UUID> getProdutoId() {
+		return produtoId;
 	}
-	public void setProdutos(List<UUID> produtos) {
-		this.produtos = produtos;
+	public void setProdutoId(List<UUID> produtos) {
+		this.produtoId = produtos;
 	}
 	public String getCpf() {
 		return cpf;
