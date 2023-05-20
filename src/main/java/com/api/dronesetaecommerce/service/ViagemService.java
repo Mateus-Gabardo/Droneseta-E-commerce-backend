@@ -46,13 +46,13 @@ public class ViagemService {
 		ViagemDto viagemDto = new ViagemDto();
 		viagemDto.setDataHora(new Date());
 		viagemDto.setStatus(StatusViagem.ABERTO);
-		viagemDto.setEnderecoId(pedido.getEnderecoModel().getId());
+		viagemDto.setEnderecoId(pedido.getEndereco().getId());
 		viagemDto.setQtdCamisetas(qtdCamisetas);
 		ViagemModel viagemModel = new ViagemModel();
 		BeanUtils.copyProperties(viagemDto, viagemModel);
 		
 		viagemModel.setPedido(pedido);
-		viagemModel.setEnderecoModel(pedido.getEnderecoModel());
+		viagemModel.setEnderecoModel(pedido.getEndereco());
 		
 		viagemRepository.save(viagemModel);
 		return viagemModel;
