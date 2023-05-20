@@ -62,4 +62,20 @@ public class ClienteDto {
 		this.tipoCliente = tipoCliente;
 	}
 
+	public String getCartaoCredito() {
+		return cartaoCredito;
+	}
+
+	public void setCartaoCredito(String cartaoCredito) {
+		this.cartaoCredito = cartaoCredito;
+	}
+
+	public TipoCliente getTipoCliente() {
+		return tipoCliente;
+	}
+
+	public void setTipoCliente(TipoCliente tipoCliente) {
+		this.tipoCliente = tipoCliente;
+	}
+
 }

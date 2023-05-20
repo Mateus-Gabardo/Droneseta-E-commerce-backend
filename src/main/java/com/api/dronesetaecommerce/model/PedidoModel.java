@@ -33,7 +33,7 @@ public class PedidoModel {
 	@Enumerated(EnumType.STRING)
 	private StatusPedido status;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "enderecoId")
 	private EnderecoModel enderecoModel;
 
