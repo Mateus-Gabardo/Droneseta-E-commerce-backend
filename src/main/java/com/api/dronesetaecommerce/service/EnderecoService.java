@@ -26,6 +26,10 @@ public class EnderecoService {
 		return repository.findById(id);
 	}
 	
+	public Optional<EnderecoModel> findByClienteId(UUID clienteId) {
+		return repository.findByClienteId(clienteId);
+	}
+	
 	@Transactional
 	public EnderecoModel save(EnderecoModel endereco) {
 		return repository.save(endereco);

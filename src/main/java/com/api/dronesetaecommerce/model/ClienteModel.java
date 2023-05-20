@@ -1,5 +1,6 @@
 package com.api.dronesetaecommerce.model;
 
+import java.util.Date;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -10,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -37,6 +40,10 @@ public class ClienteModel {
 	@Column
 	@Enumerated(EnumType.STRING)
 	private TipoCliente tipoCliente;
+	
+	@Column
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date excludedAt;
 
 	public ClienteModel() {
 	}
@@ -105,6 +112,14 @@ public class ClienteModel {
 
 	public void setClienteId(UUID clienteId) {
 		this.clienteId = clienteId;
+	}
+
+	public Date getExcludedAt() {
+		return excludedAt;
+	}
+
+	public void setExcludedAt(Date excludedAt) {
+		this.excludedAt = excludedAt;
 	}
 
 	public static long getSerialversionuid() {

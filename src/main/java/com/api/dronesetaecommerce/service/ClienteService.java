@@ -1,5 +1,6 @@
 package com.api.dronesetaecommerce.service;
 
+import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -36,7 +37,8 @@ public class ClienteService {
 	}
 	
 	public void delete(ClienteModel cliente) {
-		repository.delete(cliente);
+		cliente.setExcludedAt(new Date());
+		repository.save(cliente);
 	}
 	
 	public boolean login(String cpf, String senha) {
