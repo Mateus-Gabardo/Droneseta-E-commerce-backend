@@ -20,7 +20,7 @@ public class ClienteService {
 	ClienteRepository repository;
 	
 	public Page<ClienteModel> findAll(Pageable pageable) {
-		return repository.findAll(pageable);
+		return repository.findAllNotExcluded(pageable);
 	}
 
 	public Optional<ClienteModel> findById(UUID id) {
